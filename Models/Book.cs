@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LibraryManagementSystem.Data;
+namespace LibraryManagementSystem.Models;
 
 public class Book
 {
@@ -11,7 +12,7 @@ public class Book
     public string Name { get; set; }
     [Required(ErrorMessage = "Author field required!")]
     public string Author { get; set; }
-    public DateTime? PublishDate { get; set; }
+    public string? PublishDate { get; set; }
     public int PageCount { get; set;}
     public string? PublisherCompany { get; set; }
     public string? ISBN { get; set; }
@@ -22,6 +23,8 @@ public class Book
     public int NumberOfCopies { get; set; }
     public int AvailableCopies { get; set; } 
     public string? ShelfLocation { get; set; }
-    public DateTime CreatedDate { get; set; } = DateTime.Now;
+    
+    [Column(TypeName = "timestamp without time zone")]
+    public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedDate { get; set; }
 }

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LibraryManagementSystem.Data;
+namespace LibraryManagementSystem.Models;
 
 public class Borrow
 {

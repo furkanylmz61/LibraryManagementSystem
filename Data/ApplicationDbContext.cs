@@ -1,3 +1,4 @@
+using LibraryManagementSystem.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagementSystem.Data;

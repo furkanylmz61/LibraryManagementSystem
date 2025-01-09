@@ -1,0 +1,30 @@
+@model LibraryManagementSystem.Models.Book
+
+@{
+    ViewData["Title"] = "Book Details";
+}
+
+<h2>Book Details</h2>
+
+<div class="mb-3">
+    <strong>Book Name:</strong> @Model.Name
+</div>
+<div class="mb-3">
+    <strong>Author:</strong> @Model.Author
+</div>
+<div class="mb-3">
+    <strong>Publish Date:</strong> @Model.PublishDate
+</div>
+<div class="mb-3">
+    <strong>Page Count:</strong> @Model.PageCount
+</div>
+<div class="mb-3">
+    <strong>Available Copies:</strong> @Model.AvailableCopies
+</div>
+<!-- Diğer alanları da benzer şekilde ekleyebilirsiniz -->
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.BookId" class="btn btn-warning">Edit</a>
+    <a asp-action="Delete" asp-route-id="@Model.BookId" class="btn btn-danger">Delete</a>
+</div>

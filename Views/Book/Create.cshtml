@@ -1,0 +1,44 @@
+@model LibraryManagementSystem.Models.Book
+
+@{
+    ViewData["Title"] = "Create Book";
+}
+
+<h2>Create Book</h2>
+
+<form asp-action="Create" asp-controller="Book" method="post">
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Author" class="control-label"></label>
+        <input asp-for="Author" class="form-control" />
+        <span asp-validation-for="Author" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PublishDate" class="control-label"></label>
+        <input asp-for="PublishDate" type="date" class="form-control" />
+        <span asp-validation-for="PublishDate" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="PageCount" class="control-label"></label>
+        <input asp-for="PageCount" class="form-control" />
+        <span asp-validation-for="PageCount" class="text-danger"></span>
+    </div>
+
+    <!-- Diğer alanlar (NumberOfCopies, AvailableCopies, vb.) için de benzer inputlar ekleyebilirsiniz. -->
+    
+    <div class="form-group mt-3">
+        <input type="submit" value="Create" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
