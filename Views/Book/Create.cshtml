@@ -19,20 +19,85 @@
         <span asp-validation-for="Author" class="text-danger"></span>
     </div>
 
+    <!-- Yayın Tarihi (PublishDate) -->
     <div class="form-group">
         <label asp-for="PublishDate" class="control-label"></label>
+        <!-- Modelde string tanımladık, ama type="date" veriyoruz -->
         <input asp-for="PublishDate" type="date" class="form-control" />
         <span asp-validation-for="PublishDate" class="text-danger"></span>
     </div>
-    
+
+    <!-- Sayfa Sayısı -->
     <div class="form-group">
         <label asp-for="PageCount" class="control-label"></label>
         <input asp-for="PageCount" class="form-control" />
         <span asp-validation-for="PageCount" class="text-danger"></span>
     </div>
 
-    <!-- Diğer alanlar (NumberOfCopies, AvailableCopies, vb.) için de benzer inputlar ekleyebilirsiniz. -->
-    
+    <!-- PublisherCompany -->
+    <div class="form-group">
+        <label asp-for="PublisherCompany" class="control-label"></label>
+        <input asp-for="PublisherCompany" class="form-control" />
+        <span asp-validation-for="PublisherCompany" class="text-danger"></span>
+    </div>
+
+    <!-- ISBN -->
+    <div class="form-group">
+        <label asp-for="ISBN" class="control-label"></label>
+        <input asp-for="ISBN" class="form-control" />
+        <span asp-validation-for="ISBN" class="text-danger"></span>
+    </div>
+
+    <!-- Genre -->
+    <div class="form-group">
+        <label asp-for="Genre" class="control-label"></label>
+        <input asp-for="Genre" class="form-control" />
+        <span asp-validation-for="Genre" class="text-danger"></span>
+    </div>
+
+    <!-- CoverImage -->
+    <div class="form-group">
+        <label asp-for="CoverImage" class="control-label"></label>
+        <input asp-for="CoverImage" class="form-control" />
+        <span asp-validation-for="CoverImage" class="text-danger"></span>
+    </div>
+
+    <!-- Language -->
+    <div class="form-group">
+        <label asp-for="Language" class="control-label"></label>
+        <input asp-for="Language" class="form-control" />
+        <span asp-validation-for="Language" class="text-danger"></span>
+    </div>
+
+    <!-- Edition -->
+    <div class="form-group">
+        <label asp-for="Edition" class="control-label"></label>
+        <input asp-for="Edition" class="form-control" />
+        <span asp-validation-for="Edition" class="text-danger"></span>
+    </div>
+
+    <!-- NumberOfCopies -->
+    <div class="form-group">
+        <label asp-for="NumberOfCopies" class="control-label"></label>
+        <input asp-for="NumberOfCopies" class="form-control" />
+        <span asp-validation-for="NumberOfCopies" class="text-danger"></span>
+    </div>
+
+    <!-- AvailableCopies -->
+    <div class="form-group">
+        <label asp-for="AvailableCopies" class="control-label"></label>
+        <input asp-for="AvailableCopies" class="form-control" />
+        <span asp-validation-for="AvailableCopies" class="text-danger"></span>
+    </div>
+
+    <!-- ShelfLocation -->
+    <div class="form-group">
+        <label asp-for="ShelfLocation" class="control-label"></label>
+        <input asp-for="ShelfLocation" class="form-control" />
+        <span asp-validation-for="ShelfLocation" class="text-danger"></span>
+    </div>
+
+    <!-- Submit butonu -->
     <div class="form-group mt-3">
         <input type="submit" value="Create" class="btn btn-primary" />
         <a asp-action="Index" class="btn btn-secondary">Cancel</a>

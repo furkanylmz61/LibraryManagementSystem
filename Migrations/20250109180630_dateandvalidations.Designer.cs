@@ -3,6 +3,7 @@ using System;
 using LibraryManagementSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LibraryManagementSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250109180630_dateandvalidations")]
+    partial class dateandvalidations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,11 +85,11 @@ namespace LibraryManagementSystem.Migrations
                         .HasColumnType("character varying(50)");
 
                     b.Property<string>("ShelfLocation")
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)");
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)");
 
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<DateTimeOffset?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("BookId");
 
@@ -106,11 +109,11 @@ namespace LibraryManagementSystem.Migrations
                     b.Property<Guid>("BookId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("BorrowDate")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<DateTimeOffset>("BorrowDate")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime?>("ReturnDate")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<DateTimeOffset?>("ReturnDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -163,8 +166,8 @@ namespace LibraryManagementSystem.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<DateTime>("MembershipDate")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<DateTimeOffset>("MembershipDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
