@@ -1,8 +1,6 @@
 using LibraryManagementSystem.Models;
 using LibraryManagementSystem.Services.Book;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging; 
-using System;
 
 namespace LibraryManagementSystem.Controllers;
 
@@ -30,34 +28,85 @@ namespace LibraryManagementSystem.Controllers;
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Book book)
-        {
-            // Model State kontrolü
-            if (!ModelState.IsValid)
-            {
-                _logger.LogWarning("ModelState is invalid while creating a new Book. Errors: {errors}", 
-                    ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
-                return View(book);
-            }
 
-            // Try-Catch ile hata yakalama durumu gerçekleştiriyoruz.
+        
+        [HttpPost] 
+        [ValidateAntiForgeryToken]
+public async Task<IActionResult> Create(Book book, IFormFile formFile)
+{
+    // Desteklenen dosya uzantıları
+    var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
+
+    if (formFile != null && formFile.Length > 0)
+    {
+        var extension = Path.GetExtension(formFile.FileName).ToLowerInvariant();
+
+        if (!allowedExtensions.Contains(extension))
+        {
+            ModelState.AddModelError("", "Lütfen geçerli bir resim uzantısı yükleyiniz (.jpg, .jpeg veya .png).");
+        }
+        else
+        {
+            // Dosya adı oluştur
+            var randomFileName = $"{Guid.NewGuid()}{extension}";
+
+            // Dosya yolu oluştur
+            var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", randomFileName);
+
             try
             {
-                await _bookService.AddBookAsync(book);
+                // uploads klasörünün varlığını kontrol et, yoksa oluştur
+                var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+                if (!Directory.Exists(uploadDir))
+                {
+                    Directory.CreateDirectory(uploadDir);
+                }
+
+                // Dosyayı kaydet
+                using (var stream = new FileStream(uploadPath, FileMode.Create))
+                {
+                    await formFile.CopyToAsync(stream);
+                }
+
+                // Kitap modeline resim yolunu ata
+                book.CoverImage = randomFileName;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while creating a new Book.");
-                
-                // burada hatayı sayfaya basıyoruz
-                ModelState.AddModelError("", "An error occurred while saving the book to the database.");
-                return View(book);
+                _logger.LogError(ex, "Dosya yüklenirken bir hata oluştu.");
+                ModelState.AddModelError("", "Dosya yüklenirken bir hata oluştu. Lütfen tekrar deneyin.");
             }
-
-            return RedirectToAction(nameof(Index));
         }
+    }
+    else
+    {
+        ModelState.AddModelError("", "Lütfen bir resim dosyası seçiniz.");
+    }
+
+    // ModelState kontrolü
+    if (!ModelState.IsValid)
+    {
+        return View(book);
+    }
+
+    // Kitap ekleme işlemi
+    try
+    {
+        await _bookService.AddBookAsync(book);
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "Veritabanına kitap eklenirken bir hata oluştu.");
+        ModelState.AddModelError("", "Kitap eklenirken bir hata oluştu.");
+        return View(book);
+    }
+
+    // Başarılıysa Index sayfasına yönlendir
+    return RedirectToAction(nameof(Index));
+}
+
+
+
 
         //Detail 
         public async Task<IActionResult> Details(Guid id)

@@ -4,20 +4,66 @@
     ViewData["Title"] = "Delete Book";
 }
 
-<h2>Delete Book</h2>
+<!-- Basit stil örneği (Dilersen Layout'a veya ayrı bir CSS dosyasına alabilirsin) -->
+<style>
+    .section-header {
+        margin-bottom: 20px;
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+    .delete-info {
+        margin-bottom: 15px;
+    }
+</style>
 
+<h2 class="section-header">Delete Book</h2>
 <h4>Are you sure you want to delete this book?</h4>
 
-<div>
+<div class="delete-info">
     <strong>Book Name:</strong> @Model.Name
 </div>
-<div>
+<div class="delete-info">
     <strong>Author:</strong> @Model.Author
 </div>
-<div>
+<div class="delete-info">
+    <strong>Publish Date:</strong> @Model.PublishDate
+</div>
+<div class="delete-info">
+    <strong>Page Count:</strong> @Model.PageCount
+</div>
+<div class="delete-info">
+    <strong>Publisher:</strong> @Model.PublisherCompany
+</div>
+<div class="delete-info">
+    <strong>ISBN:</strong> @Model.ISBN
+</div>
+<div class="delete-info">
+    <strong>Genre:</strong> @Model.Genre
+</div>
+<div class="delete-info">
+    <strong>Language:</strong> @Model.Language
+</div>
+<div class="delete-info">
+    <strong>Edition:</strong> @Model.Edition
+</div>
+<div class="delete-info">
+    <strong>Number of Copies:</strong> @Model.NumberOfCopies
+</div>
+<div class="delete-info">
     <strong>Available Copies:</strong> @Model.AvailableCopies
 </div>
-<!-- İsteğe göre diğer alanları da gösterebilirsiniz -->
+<div class="delete-info">
+    <strong>Shelf Location:</strong> @Model.ShelfLocation
+</div>
+
+<!-- Kapak fotoğrafını göstermek istersen -->
+@if (!string.IsNullOrEmpty(Model.CoverImage))
+{
+    <div class="delete-info">
+        <strong>Cover Image:</strong><br />
+        <img src="~/uploads/@Model.CoverImage" alt="@Model.Name" style="max-width:150px;"/>
+    </div>
+}
 
 <form asp-action="DeleteConfirmed" asp-controller="Book" method="post">
     <input type="hidden" asp-for="BookId" />

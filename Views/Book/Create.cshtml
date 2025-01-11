@@ -3,10 +3,13 @@
 @{
     ViewData["Title"] = "Create Book";
 }
+<head>
+    <link href="~/css/site.css" rel="stylesheet" />
 
+</head>
 <h2>Create Book</h2>
 
-<form asp-action="Create" asp-controller="Book" method="post">
+<form asp-action="Create" asp-controller="Book" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label>
         <input asp-for="Name" class="form-control" />
@@ -19,7 +22,6 @@
         <span asp-validation-for="Author" class="text-danger"></span>
     </div>
 
-    <!-- Yayın Tarihi (PublishDate) -->
     <div class="form-group">
         <label asp-for="PublishDate" class="control-label"></label>
         <!-- Modelde string tanımladık, ama type="date" veriyoruz -->
@@ -57,9 +59,9 @@
 
     <!-- CoverImage -->
     <div class="form-group">
-        <label asp-for="CoverImage" class="control-label"></label>
-        <input asp-for="CoverImage" class="form-control" />
-        <span asp-validation-for="CoverImage" class="text-danger"></span>
+        <label for="formFile" class="control-label">Upload Cover Image</label>
+        <input type="file" name="formFile" class="form-control" />
+        <span class="text-danger"></span>
     </div>
 
     <!-- Language -->

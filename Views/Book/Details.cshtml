@@ -4,26 +4,79 @@
     ViewData["Title"] = "Book Details";
 }
 
+<!-- Basit stil örneği -->
+<style>
+    .detail-label {
+        font-weight: 600;
+        display: inline-block;
+        width: 140px;
+    }
+    .detail-item {
+        margin-bottom: 10px;
+    }
+</style>
+
 <h2>Book Details</h2>
 
-<div class="mb-3">
-    <strong>Book Name:</strong> @Model.Name
+<div class="detail-item">
+    <span class="detail-label">Book Name:</span>
+    @Model.Name
 </div>
-<div class="mb-3">
-    <strong>Author:</strong> @Model.Author
+<div class="detail-item">
+    <span class="detail-label">Author:</span>
+    @Model.Author
 </div>
-<div class="mb-3">
-    <strong>Publish Date:</strong> @Model.PublishDate
+<div class="detail-item">
+    <span class="detail-label">Publish Date:</span>
+    @Model.PublishDate
 </div>
-<div class="mb-3">
-    <strong>Page Count:</strong> @Model.PageCount
+<div class="detail-item">
+    <span class="detail-label">Page Count:</span>
+    @Model.PageCount
 </div>
-<div class="mb-3">
-    <strong>Available Copies:</strong> @Model.AvailableCopies
+<div class="detail-item">
+    <span class="detail-label">Publisher:</span>
+    @Model.PublisherCompany
 </div>
-<!-- Diğer alanları da benzer şekilde ekleyebilirsiniz -->
+<div class="detail-item">
+    <span class="detail-label">ISBN:</span>
+    @Model.ISBN
+</div>
+<div class="detail-item">
+    <span class="detail-label">Genre:</span>
+    @Model.Genre
+</div>
+<div class="detail-item">
+    <span class="detail-label">Language:</span>
+    @Model.Language
+</div>
+<div class="detail-item">
+    <span class="detail-label">Edition:</span>
+    @Model.Edition
+</div>
+<div class="detail-item">
+    <span class="detail-label">Number of Copies:</span>
+    @Model.NumberOfCopies
+</div>
+<div class="detail-item">
+    <span class="detail-label">Available Copies:</span>
+    @Model.AvailableCopies
+</div>
+<div class="detail-item">
+    <span class="detail-label">Shelf Location:</span>
+    @Model.ShelfLocation
+</div>
 
-<div>
+<!-- Kapak fotoğrafını gösterme -->
+@if (!string.IsNullOrEmpty(Model.CoverImage))
+{
+    <div class="detail-item">
+        <span class="detail-label">Cover Image:</span><br />
+        <img src="~/uploads/@Model.CoverImage" alt="@Model.Name" style="max-width:150px;"/>
+    </div>
+}
+
+<div class="mt-3">
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
     <a asp-action="Edit" asp-route-id="@Model.BookId" class="btn btn-warning">Edit</a>
     <a asp-action="Delete" asp-route-id="@Model.BookId" class="btn btn-danger">Delete</a>

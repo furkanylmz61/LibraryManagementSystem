@@ -1,30 +1,74 @@
 @model IEnumerable<LibraryManagementSystem.Models.Book>
 
-<h2>Book List</h2>
-<a class="btn btn-primary" asp-action="Create">Create New Book</a>
+@{
+    ViewData["Title"] = "Book List";
+}
+<h2 class="text-center mb-4">Book List</h2>
 
-<table class="table table-striped mt-3">
-    <thead>
-    <tr>
-        <th>Book Name</th>
-        <th>Author</th>
-        <th>Available Copies</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach(var book in Model)
-    {
-        <tr>
-            <td>@book.Name</td>
-            <td>@book.Author</td>
-            <td>@book.AvailableCopies</td>
-            <td>
-                <a asp-action="Details" asp-route-id="@book.BookId" class="btn btn-info">Details</a>
-                <a asp-action="Edit" asp-route-id="@book.BookId" class="btn btn-warning">Edit</a>
-                <a asp-action="Delete" asp-route-id="@book.BookId" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+<div class="mb-3">
+    <a class="btn btn-primary" asp-action="Create">Create New Book</a>
+</div>
+
+<div class="table-container">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Cover</th>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Publish Date</th>
+                    <th>Page Count</th>
+                    <th>Publisher</th>
+                    <th>ISBN</th>
+                    <th>Genre</th>
+                    <th>Language</th>
+                    <th>Edition</th>
+                    <th>Total Copies</th>
+                    <th>Available Copies</th>
+                    <th>Shelf Location</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <!-- Kapak Fotoğrafı -->
+                        <td>
+                            @if (!string.IsNullOrEmpty(book.CoverImage))
+                            {
+                                <img src="~/uploads/@book.CoverImage" alt="@book.Name" />
+                            }
+                            else
+                            {
+                                <span>No Image</span>
+                            }
+                        </td>
+                        <!-- Kitap Detayları -->
+                        <td>@book.Name</td>
+                        <td>@book.Author</td>
+                        <td>@book.PublishDate</td>
+                        <td>@book.PageCount</td>
+                        <td>@book.PublisherCompany</td>
+                        <td>@book.ISBN</td>
+                        <td>@book.Genre</td>
+                        <td>@book.Language</td>
+                        <td>@book.Edition</td>
+                        <td>@book.NumberOfCopies</td>
+                        <td>@book.AvailableCopies</td>
+                        <td>@book.ShelfLocation</td>
+                        <!-- İşlem Düğmeleri -->
+                        <td>
+                            <div class="btn-group">
+                                <a asp-action="Details" asp-route-id="@book.BookId" class="btn btn-info btn-sm">Details</a>
+                                <a asp-action="Edit" asp-route-id="@book.BookId" class="btn btn-warning btn-sm">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@book.BookId" class="btn btn-danger btn-sm">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

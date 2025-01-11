@@ -23,7 +23,6 @@ public class Book
     public string? ISBN { get; set; }
     [StringLength(40)]
     public string? Genre { get; set; }
-    [StringLength(100)]
     public string? CoverImage { get; set; }
     [StringLength(40)]
     public string? Language { get; set; }
