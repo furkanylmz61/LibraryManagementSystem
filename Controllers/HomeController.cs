@@ -1,21 +1,32 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LibraryManagementSystem.Models;
+using LibraryManagementSystem.Services.Book;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagementSystem.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly IBookService _bookService;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(IBookService bookService)
     {
-        _logger = logger;
+        _bookService = bookService;
     }
 
-    public IActionResult Index()
-    {
-        return View();
-    }
+    
 
+    public async Task<IActionResult> Index()
+    {
+        var allBooks = await _bookService.GetAllBooksAsync();
+        var featuredBooks = allBooks.Take(4); 
+
+        var model = new HomeViewModel
+        {
+            FeaturedBooks = featuredBooks
+        };
+
+        return View(model);
+    }
     public IActionResult Privacy()
     {
         return View();
@@ -26,5 +37,7 @@ public class HomeController : Controller
     {
         return null;
     }
+    
+    
 
 }
