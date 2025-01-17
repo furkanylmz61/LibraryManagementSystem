@@ -157,18 +157,17 @@ public async Task<IActionResult> Create(Book book, IFormFile formFile)
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: /Book/Delete/{id}
+        [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
             var book = await _bookService.GetBookByIdAsync(id);
             if (book == null)
                 return NotFound();
 
-            return View(book);
+            return View(book); 
         }
 
-        // POST: /Book/Delete/{id}
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
@@ -180,12 +179,14 @@ public async Task<IActionResult> Create(Book book, IFormFile formFile)
             {
                 _logger.LogError(ex, "An error occurred while deleting Book ID: {id}", id);
                 ModelState.AddModelError("", "An error occurred while deleting the book.");
-                // Tekrar view göstermek için
+
+
                 var book = await _bookService.GetBookByIdAsync(id);
                 return View("Delete", book);
             }
 
             return RedirectToAction(nameof(Index));
         }
+
     }
 

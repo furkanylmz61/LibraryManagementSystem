@@ -245,6 +245,30 @@
       "PackagePath": "staticwebassets/lib/jquery/dist/jquery.min.map"
     },
     {
+      "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/0d25cecb-23b1-4f1f-b4da-268d4febf0cc.jpeg",
+      "PackagePath": "staticwebassets/uploads/0d25cecb-23b1-4f1f-b4da-268d4febf0cc.jpeg"
+    },
+    {
+      "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/196a2598-656a-472e-af05-13528944b160.jpeg",
+      "PackagePath": "staticwebassets/uploads/196a2598-656a-472e-af05-13528944b160.jpeg"
+    },
+    {
+      "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/247ae7a0-89ea-49b8-9d1e-e2f25fbbe6f1.jpeg",
+      "PackagePath": "staticwebassets/uploads/247ae7a0-89ea-49b8-9d1e-e2f25fbbe6f1.jpeg"
+    },
+    {
+      "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/a85f1332-8df7-4060-857c-f3e06bfd41b3.jpeg",
+      "PackagePath": "staticwebassets/uploads/a85f1332-8df7-4060-857c-f3e06bfd41b3.jpeg"
+    },
+    {
+      "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/ccc400c5-fb85-4d7a-9b23-38b7624f3f2e.jpeg",
+      "PackagePath": "staticwebassets/uploads/ccc400c5-fb85-4d7a-9b23-38b7624f3f2e.jpeg"
+    },
+    {
+      "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/e73a0523-0dcd-4732-b6bb-dd9a49246782.jpeg",
+      "PackagePath": "staticwebassets/uploads/e73a0523-0dcd-4732-b6bb-dd9a49246782.jpeg"
+    },
+    {
       "Id": "obj/Debug/net7.0/staticwebassets/msbuild.LibraryManagementSystem.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

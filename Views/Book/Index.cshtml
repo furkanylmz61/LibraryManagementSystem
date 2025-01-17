@@ -34,7 +34,6 @@
                 @foreach (var book in Model)
                 {
                     <tr>
-                        <!-- Kapak Fotoğrafı -->
                         <td>
                             @if (!string.IsNullOrEmpty(book.CoverImage))
                             {
@@ -45,7 +44,6 @@
                                 <span>No Image</span>
                             }
                         </td>
-                        <!-- Kitap Detayları -->
                         <td>@book.Name</td>
                         <td>@book.Author</td>
                         <td>@book.PublishDate</td>
@@ -58,7 +56,6 @@
                         <td>@book.NumberOfCopies</td>
                         <td>@book.AvailableCopies</td>
                         <td>@book.ShelfLocation</td>
-                        <!-- İşlem Düğmeleri -->
                         <td>
                             <div class="btn-group">
                                 <a asp-action="Details" asp-route-id="@book.BookId" class="btn btn-info btn-sm">Details</a>
