@@ -19,4 +19,8 @@
       <Folder Include="wwwroot\uploads\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\User\Login.cshtml" />
+    </ItemGroup>
+
 </Project>

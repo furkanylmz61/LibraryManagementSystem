@@ -14,7 +14,6 @@ public class HomeController : Controller
     }
 
     
-
     public async Task<IActionResult> Index()
     {
         var allBooks = await _bookService.GetAllBooksAsync();
@@ -37,7 +36,5 @@ public class HomeController : Controller
     {
         return null;
     }
-    
-    
 
 }
