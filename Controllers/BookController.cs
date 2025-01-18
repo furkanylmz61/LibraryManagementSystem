@@ -32,8 +32,8 @@ namespace LibraryManagementSystem.Controllers;
         
         [HttpPost] 
         [ValidateAntiForgeryToken]
-public async Task<IActionResult> Create(Book book, IFormFile formFile)
-{
+    public async Task<IActionResult> Create(Book book, IFormFile formFile)
+    {
     // Desteklenen dosya uzantıları
     var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
 

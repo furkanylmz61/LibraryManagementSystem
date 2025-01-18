@@ -38,4 +38,11 @@ public class Book
     public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
     [Column(TypeName = "timestamp without time zone")]
     public DateTime? UpdatedDate { get; set; }
+    
+    
+    [Required(ErrorMessage = "Category is required.")]
+    public Guid CategoryId { get; set; }
+
+    [ForeignKey("CategoryId")]
+    public virtual Category Category { get; set; }
 }

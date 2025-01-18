@@ -1,0 +1,37 @@
+@model IEnumerable<LibraryManagementSystem.Models.Category>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h2>Categories</h2>
+
+<p>
+    <a href="@Url.Action("Create", "Category")" class="btn btn-primary">Create New Category</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Number of Books</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var category in Model)
+    {
+        <tr>
+            <td>@category.Name</td>
+            <td>@category.Description</td>
+            <td>@category.Books.Count()</td>
+            <td>
+                <a href="@Url.Action("Details", "Category", new { id = category.CategoryId })" class="btn btn-info btn-sm">Details</a>
+                <a href="@Url.Action("Edit", "Category", new { id = category.CategoryId })" class="btn btn-warning btn-sm">Edit</a>
+                <a href="@Url.Action("Delete", "Category", new { id = category.CategoryId })" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

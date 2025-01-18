@@ -1,7 +1,10 @@
 using LibraryManagementSystem.Data;
+using LibraryManagementSystem.Models;
 using LibraryManagementSystem.Repositories.book;
+using LibraryManagementSystem.Repositories.category;
 using LibraryManagementSystem.Repositories.generic;
 using LibraryManagementSystem.Services.Book;
+using LibraryManagementSystem.Services.Category;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,9 +17,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IBookRepository, BookRepository>();
-
-
 builder.Services.AddScoped<IBookService, BookService>();
+
+builder.Services.AddScoped<IGenericRepository<Category>, GenericRepository<Category>>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
