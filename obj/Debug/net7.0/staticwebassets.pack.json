@@ -249,16 +249,48 @@
       "PackagePath": "staticwebassets/uploads/0d25cecb-23b1-4f1f-b4da-268d4febf0cc.jpeg"
     },
     {
+      "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/15c33c19-b470-40ee-bcb0-34f96ccbe02a.jpeg",
+      "PackagePath": "staticwebassets/uploads/15c33c19-b470-40ee-bcb0-34f96ccbe02a.jpeg"
+    },
+    {
       "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/196a2598-656a-472e-af05-13528944b160.jpeg",
       "PackagePath": "staticwebassets/uploads/196a2598-656a-472e-af05-13528944b160.jpeg"
+    },
+    {
+      "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/1efd30fd-b7a6-4ea3-972f-b459a7b300a4.jpeg",
+      "PackagePath": "staticwebassets/uploads/1efd30fd-b7a6-4ea3-972f-b459a7b300a4.jpeg"
     },
     {
       "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/247ae7a0-89ea-49b8-9d1e-e2f25fbbe6f1.jpeg",
       "PackagePath": "staticwebassets/uploads/247ae7a0-89ea-49b8-9d1e-e2f25fbbe6f1.jpeg"
     },
     {
+      "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/2850447d-cec8-4189-b6fd-5c4fa04097b4.jpeg",
+      "PackagePath": "staticwebassets/uploads/2850447d-cec8-4189-b6fd-5c4fa04097b4.jpeg"
+    },
+    {
+      "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/6ad4e2ad-fdaf-4e60-954f-c307a950c4bd.jpeg",
+      "PackagePath": "staticwebassets/uploads/6ad4e2ad-fdaf-4e60-954f-c307a950c4bd.jpeg"
+    },
+    {
+      "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/7b554372-9f77-4299-8ec5-112419b74ed2.jpeg",
+      "PackagePath": "staticwebassets/uploads/7b554372-9f77-4299-8ec5-112419b74ed2.jpeg"
+    },
+    {
+      "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/7fd3f77a-b76e-4113-b4d9-9360ddc89783.jpeg",
+      "PackagePath": "staticwebassets/uploads/7fd3f77a-b76e-4113-b4d9-9360ddc89783.jpeg"
+    },
+    {
+      "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/864559c6-183a-48e8-b299-35ea02dd9824.jpeg",
+      "PackagePath": "staticwebassets/uploads/864559c6-183a-48e8-b299-35ea02dd9824.jpeg"
+    },
+    {
       "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/a85f1332-8df7-4060-857c-f3e06bfd41b3.jpeg",
       "PackagePath": "staticwebassets/uploads/a85f1332-8df7-4060-857c-f3e06bfd41b3.jpeg"
+    },
+    {
+      "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/c351ecc0-32fa-4358-a198-023feb53d1b2.jpeg",
+      "PackagePath": "staticwebassets/uploads/c351ecc0-32fa-4358-a198-023feb53d1b2.jpeg"
     },
     {
       "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/ccc400c5-fb85-4d7a-9b23-38b7624f3f2e.jpeg",
@@ -267,6 +299,10 @@
     {
       "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/e73a0523-0dcd-4732-b6bb-dd9a49246782.jpeg",
       "PackagePath": "staticwebassets/uploads/e73a0523-0dcd-4732-b6bb-dd9a49246782.jpeg"
+    },
+    {
+      "Id": "/Users/furkanyilmaz/Desktop/bootcamp-self-example/LibraryManagementSystem/LibraryManagementSystem/wwwroot/uploads/f7dce6a8-aa1f-4ef6-954a-162c6018e41a.jpeg",
+      "PackagePath": "staticwebassets/uploads/f7dce6a8-aa1f-4ef6-954a-162c6018e41a.jpeg"
     },
     {
       "Id": "obj/Debug/net7.0/staticwebassets/msbuild.LibraryManagementSystem.Microsoft.AspNetCore.StaticWebAssets.props",

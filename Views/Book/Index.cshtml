@@ -22,6 +22,7 @@
                     <th>Publisher</th>
                     <th>ISBN</th>
                     <th>Genre</th>
+                    <th>Category</th>
                     <th>Language</th>
                     <th>Edition</th>
                     <th>Total Copies</th>
@@ -51,6 +52,7 @@
                         <td>@book.PublisherCompany</td>
                         <td>@book.ISBN</td>
                         <td>@book.Genre</td>
+                        <td>@book.Category?.Name</td>
                         <td>@book.Language</td>
                         <td>@book.Edition</td>
                         <td>@book.NumberOfCopies</td>

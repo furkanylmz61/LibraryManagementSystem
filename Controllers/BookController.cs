@@ -1,6 +1,9 @@
+using LibraryManagementSystem.Data;
 using LibraryManagementSystem.Models;
 using LibraryManagementSystem.Services.Book;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagementSystem.Controllers;
 
@@ -8,32 +11,43 @@ namespace LibraryManagementSystem.Controllers;
     {
         private readonly IBookService _bookService;
         private readonly ILogger<BookController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public BookController(IBookService bookService, ILogger<BookController> logger)
+        public BookController(IBookService bookService, ILogger<BookController> logger, ApplicationDbContext context)
         {
             _bookService = bookService;
             _logger = logger;
+            _context = context;
         }
 
         //Get /Book
         public async Task<IActionResult> Index()
         {
-            var books = await _bookService.GetAllBooksAsync();
+            var books = await _context.Books
+                .Include(b => b.Category)
+                .ToListAsync();
             return View(books);
         }
 
         //boş form göster
         public IActionResult Create()
         {
+            LoadCategoriesToViewBag();
             return View();
         }
-
-
         
-        [HttpPost] 
-        [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(Book book, IFormFile formFile)
+
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Create(Book book, IFormFile formFile)
+{
+    
+    if (!ModelState.IsValid)
     {
+        _logger.LogWarning("Form validation error: {Errors}", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+        LoadCategoriesToViewBag(); 
+        return View(book);
+    }
     // Desteklenen dosya uzantıları
     var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
 
@@ -43,19 +57,16 @@ namespace LibraryManagementSystem.Controllers;
 
         if (!allowedExtensions.Contains(extension))
         {
-            ModelState.AddModelError("", "Lütfen geçerli bir resim uzantısı yükleyiniz (.jpg, .jpeg veya .png).");
+            ModelState.AddModelError("", "please select valid image file (.jpg, .jpeg veya .png).");
+            _logger.LogWarning("Invalid file extension loaded: {Extension}", extension);
         }
         else
         {
-            // Dosya adı oluştur
             var randomFileName = $"{Guid.NewGuid()}{extension}";
-
-            // Dosya yolu oluştur
             var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", randomFileName);
 
-            try
+            try 
             {
-                // uploads klasörünün varlığını kontrol et, yoksa oluştur
                 var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
                 if (!Directory.Exists(uploadDir))
                 {
@@ -70,38 +81,41 @@ namespace LibraryManagementSystem.Controllers;
 
                 // Kitap modeline resim yolunu ata
                 book.CoverImage = randomFileName;
+                _logger.LogInformation("Image successfully uploaded and saved: {FileName}", randomFileName);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Dosya yüklenirken bir hata oluştu.");
-                ModelState.AddModelError("", "Dosya yüklenirken bir hata oluştu. Lütfen tekrar deneyin.");
+                _logger.LogError(ex, "An error occurred while adding a book");
+                ModelState.AddModelError("", "An error occurred while adding a book");
+                LoadCategoriesToViewBag(); 
+                return View(book);
             }
         }
     }
     else
     {
-        ModelState.AddModelError("", "Lütfen bir resim dosyası seçiniz.");
+        ModelState.AddModelError("", "please select an image file");
+        _logger.LogWarning("The user submitted the form without selecting an image.");
     }
 
-    // ModelState kontrolü
-    if (!ModelState.IsValid)
-    {
-        return View(book);
-    }
+    
 
-    // Kitap ekleme işlemi
+    //ADD book
     try
     {
+        _logger.LogInformation("Book addition process has been initiated {Book}", book);
         await _bookService.AddBookAsync(book);
+        _logger.LogInformation("Book successfully added {BookId}", book.BookId);
     }
     catch (Exception ex)
     {
-        _logger.LogError(ex, "Veritabanına kitap eklenirken bir hata oluştu.");
-        ModelState.AddModelError("", "Kitap eklenirken bir hata oluştu.");
+        _logger.LogError(ex, "While adding the book an error occured");
+        ModelState.AddModelError("", "While adding the book an error occured.");
+        LoadCategoriesToViewBag();
         return View(book);
     }
 
-    // Başarılıysa Index sayfasına yönlendir
+    // if is success return ındex page
     return RedirectToAction(nameof(Index));
 }
 
@@ -111,22 +125,31 @@ namespace LibraryManagementSystem.Controllers;
         //Detail 
         public async Task<IActionResult> Details(Guid id)
         {
-            var books = await _bookService.GetBookByIdAsync(id);
-            if (books == null)
+            var book = await _context.Books
+                .Include(b => b.Category)
+                .FirstOrDefaultAsync(b => b.BookId == id);
+
+            if (book == null)
             {
                 return NotFound();
             }
 
-            return View(books);
+            return View(book);
         }
 
         // GET: /Book/Edit/{id}
         public async Task<IActionResult> Edit(Guid id)
         {
-            var book = await _bookService.GetBookByIdAsync(id);
-            if (book == null)
-                return NotFound();
+            var book = await _context.Books
+                .Include(b => b.Category)
+                .FirstOrDefaultAsync(b => b.BookId == id);
 
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            LoadCategoriesToViewBag();
             return View(book);
         }
 
@@ -140,12 +163,14 @@ namespace LibraryManagementSystem.Controllers;
             if (!ModelState.IsValid)
             {
                 _logger.LogWarning("ModelState is invalid while editing Book ID: {id}", id);
+                LoadCategoriesToViewBag();
                 return View(book);
             }
 
             try
             {
-                await _bookService.UpdateBookAsync(book);
+                _context.Books.Update(book);
+                await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -160,11 +185,16 @@ namespace LibraryManagementSystem.Controllers;
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var book = await _bookService.GetBookByIdAsync(id);
-            if (book == null)
-                return NotFound();
+            var book = await _context.Books
+                .Include(b => b.Category)
+                .FirstOrDefaultAsync(b => b.BookId == id);
 
-            return View(book); 
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return View(book);
         }
 
         [HttpPost]
@@ -173,7 +203,12 @@ namespace LibraryManagementSystem.Controllers;
         {
             try
             {
-                await _bookService.DeleteBookAsync(id);
+                var book = await _context.Books.FindAsync(id);
+                if (book != null)
+                {
+                    _context.Books.Remove(book);
+                    await _context.SaveChangesAsync();
+                }
             }
             catch (Exception ex)
             {
@@ -181,12 +216,26 @@ namespace LibraryManagementSystem.Controllers;
                 ModelState.AddModelError("", "An error occurred while deleting the book.");
 
 
-                var book = await _bookService.GetBookByIdAsync(id);
+                var book = await _context.Books
+                    .Include(b => b.Category)
+                    .FirstOrDefaultAsync(b => b.BookId == id);
                 return View("Delete", book);
             }
 
             return RedirectToAction(nameof(Index));
         }
+        
+        private void LoadCategoriesToViewBag()
+        {
+            var categories = _context.Categories.OrderBy(c => c.Name).ToList();
+            if (!categories.Any())
+            {
+                _logger.LogWarning("Category table empty!");
+            }
+            ViewBag.CategoryList = new SelectList(categories, "CategoryId", "Name");
+        }
+
+
 
     }
 
