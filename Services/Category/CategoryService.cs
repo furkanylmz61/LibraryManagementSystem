@@ -13,8 +13,9 @@ public class CategoryService: ICategoryService
 
     public async Task<IEnumerable<Models.Category>> GetAllCategoriesAsync()
     {
-        return await _categoryRepository.GetAllAsync();
+        return await _categoryRepository.GetAllAsync(includeProperties: "Books");
     }
+
 
     public async Task<Models.Category> GetCategoryByIdAsync(Guid id)
     {
@@ -43,4 +44,7 @@ public class CategoryService: ICategoryService
             await _categoryRepository.SaveChangesAsync();
         }
     }
+    
+    
+
 }

@@ -155,9 +155,9 @@ public async Task<IActionResult> Create(Book book, IFormFile formFile)
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Book book, Guid id)
+        public async Task<IActionResult> Edit(Book book, Guid id, IFormFile? formFile)
         {
-            if (id == null) 
+            if (id == null)
                 return NotFound();
 
             if (!ModelState.IsValid)
@@ -167,20 +167,89 @@ public async Task<IActionResult> Create(Book book, IFormFile formFile)
                 return View(book);
             }
 
+            var existingBook = await _context.Books.FindAsync(id);
+            if (existingBook == null)
+            {
+                return NotFound();
+            }
+
             try
             {
-                _context.Books.Update(book);
+                // Eğer yeni bir dosya yüklenmişse, işlemi gerçekleştir
+                if (formFile != null && formFile.Length > 0)
+                {
+                    var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
+                    var extension = Path.GetExtension(formFile.FileName).ToLowerInvariant();
+
+                    if (!allowedExtensions.Contains(extension))
+                    {
+                        ModelState.AddModelError("", "Please select a valid image file (.jpg, .jpeg, or .png).");
+                        _logger.LogWarning("Invalid file extension while editing Book ID: {id}", id);
+                        LoadCategoriesToViewBag();
+                        return View(book);
+                    }
+
+                    var randomFileName = $"{Guid.NewGuid()}{extension}";
+                    var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", randomFileName);
+
+                    var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+                    if (!Directory.Exists(uploadDir))
+                    {
+                        Directory.CreateDirectory(uploadDir);
+                    }
+
+                    // Yeni dosyayı kaydet
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        await formFile.CopyToAsync(stream);
+                    }
+
+                    // Eski resmi sil
+                    if (!string.IsNullOrEmpty(existingBook.CoverImage))
+                    {
+                        var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", existingBook.CoverImage);
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+
+                    // Yeni resmi ata
+                    existingBook.CoverImage = randomFileName;
+                }
+
+                // Diğer alanları güncelle
+                existingBook.Name = book.Name;
+                existingBook.Author = book.Author;
+                existingBook.PublishDate = book.PublishDate;
+                existingBook.PageCount = book.PageCount;
+                existingBook.PublisherCompany = book.PublisherCompany;
+                existingBook.ISBN = book.ISBN;
+                existingBook.Genre = book.Genre;
+                existingBook.CategoryId = book.CategoryId;
+                existingBook.Language = book.Language;
+                existingBook.Edition = book.Edition;
+                existingBook.NumberOfCopies = book.NumberOfCopies;
+                existingBook.AvailableCopies = book.AvailableCopies;
+                existingBook.ShelfLocation = book.ShelfLocation;
+
+                // Veritabanını kaydet
+                _context.Books.Update(existingBook);
                 await _context.SaveChangesAsync();
+
+                _logger.LogInformation("Book successfully updated: {BookId}", id);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while editing Book ID: {id}", id);
                 ModelState.AddModelError("", "An error occurred while updating the book.");
+                LoadCategoriesToViewBag();
                 return View(book);
             }
 
             return RedirectToAction(nameof(Index));
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)

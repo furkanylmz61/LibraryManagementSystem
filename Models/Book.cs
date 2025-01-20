@@ -36,8 +36,9 @@ public class Book
     public string? ShelfLocation { get; set; }
     [Column(TypeName = "timestamp without time zone")]
     public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+
     [Column(TypeName = "timestamp without time zone")]
-    public DateTime? UpdatedDate { get; set; }
+    public DateTime? UpdatedDate { get; set; } = DateTime.UtcNow;
     public Guid? CategoryId { get; set; }
     public  Category? Category { get; set; }
 }

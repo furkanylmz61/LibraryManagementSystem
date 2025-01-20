@@ -13,4 +13,7 @@ public class Category
     [StringLength(100)]
     public string Description { get; set; }
     public virtual ICollection<Book> Books { get; set; } = new List<Book>();
+    
+    public int NumberOfBooks => Books?.Count ?? 0;
+
 }
