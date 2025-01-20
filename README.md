@@ -16,7 +16,7 @@ A simple Library Management System built with **ASP.NET Core**, utilizing **Post
 ## Technologies Used
 - **ASP.NET Core MVC**
 - **Entity Framework Core**
-- **SQLite**
+- **PostgreSQL**
 - **Bootstrap**
 - **HTML/CSS**
 
